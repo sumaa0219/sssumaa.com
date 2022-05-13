@@ -79,14 +79,14 @@
         }
 
         function getwhather() {
-            fetch("/wheather").then((e) => e.json()).then(async(e) => {
+            fetch("http://sssumaa.net/wheather").then((e) => e.json()).then(async(e) => {
                 const timer = document.getElementById("wea");
                 console.log(e)
                 let str = '';
                 for (let i = 0; i < 7; i++) {
                     const unixtime = e.daily[i].dt;
                     str += ''
-                    await fetch("/unixJST/" + unixtime).then((response) => response.text()).then((text) => {
+                    await fetch("http://sssumaa.net/unixJST/" + unixtime).then((response) => response.text()).then((text) => {
                         str +=
                             `<h4 id="wha${i}"><div class="date">${text}</div><div class="description">${ e.daily[i].weather[0].description}</div><div class="temp_max">最高気温:${ e.daily[i].temp.max}[℃]</div><div class="temp_min">最低気温:${ e.daily[i].temp.min}[℃]</div></h4>`
 
