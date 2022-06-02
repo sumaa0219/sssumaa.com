@@ -21,28 +21,7 @@ lon = "139.69167"
 
 
 
-<<<<<<< HEAD
-# MAIL_ADDRESS = "skotaosugi0219@gmail.com"
-# PASSWORD = "kota0219"
 
-# id_list = {
-#     "sumaa": "0219",
-#     "kanade": "1214",
-#     "haruka": "1026"
-# }
-
-
-# @auth.get_password
-# def get_pw(id):
-#     if id in id_list:
-#         return id_list.get(id)
-#     return None
-
-
-# @app.route('/admin')
-# @auth.login_required
-# def index():
-#     return "Hello, %s!" % auth.username()
 
 @app.before_request
 def before_request():
@@ -56,14 +35,12 @@ def before_request():
 def well_known(filename):
     return render_template('.well-known/acme-challenge/'+ filename)
 
-=======
->>>>>>> 7545659340cbfeb019d5e763220b7c5f38060c2e
 
 @app.route("/")
 def hell():
     return render_template("top.html")
 
-<<<<<<< HEAD
+
 @app.route("/GfN/<string:st>")
 def GfN(st):
     s = "web/" + st + ".html"
@@ -88,9 +65,6 @@ def put():
     putName = secure_filename(putFile.filename)
     putFile.save(os.path.join(app.config['UPLOAD_FOLDER'], putName))
     return jsonify()
-
-=======
->>>>>>> 7545659340cbfeb019d5e763220b7c5f38060c2e
 
 
 
