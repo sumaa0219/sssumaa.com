@@ -11,13 +11,6 @@ import locale
 app = Flask(__name__, static_folder='static',static_url_path="")
 # auth = HTTPBasicAuth()
 
-add_app = Blueprint("datefile", __name__, static_url_path="/drive", static_folder="/mnt/ex-ssd/datefile")#ここのパスも変える
-# add_app = Blueprint("datefile", __name__, static_url_path="/drive", static_folder="/home/sumaa/Desktop/api")
-app.register_blueprint(add_app)
-
-
-UPLOAD_FOLDER = '/mnt/ex-ssd/datefile/' #ここに絶対パス
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 
 wetherapikey = "80efcb09546b956c8fa14024be0cd5fa"
@@ -28,6 +21,7 @@ lon = "139.69167"
 
 
 
+<<<<<<< HEAD
 # MAIL_ADDRESS = "skotaosugi0219@gmail.com"
 # PASSWORD = "kota0219"
 
@@ -62,21 +56,14 @@ def before_request():
 def well_known(filename):
     return render_template('.well-known/acme-challenge/'+ filename)
 
+=======
+>>>>>>> 7545659340cbfeb019d5e763220b7c5f38060c2e
 
 @app.route("/")
 def hell():
-    return render_template("test.html")
-
-
-@app.route("/GfN")
-def GfNindex():
-    return render_template("web/GfN.html")
-
-@app.route("/top")
-def top():
-
     return render_template("top.html")
 
+<<<<<<< HEAD
 @app.route("/GfN/<string:st>")
 def GfN(st):
     s = "web/" + st + ".html"
@@ -102,16 +89,10 @@ def put():
     putFile.save(os.path.join(app.config['UPLOAD_FOLDER'], putName))
     return jsonify()
 
+=======
+>>>>>>> 7545659340cbfeb019d5e763220b7c5f38060c2e
 
-@app.route("/delete/<filename>", methods=["POST"])
-def delete(filename):
-    os.remove(app.config['UPLOAD_FOLDER'] + str(filename))
-    print(filename)
-    return jsonify()
 
-@app.route("/youtube")
-def youtube():
-    return render_template("youtube.html")
 
 @app.route("/wheather")
 def wheather():
