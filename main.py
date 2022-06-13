@@ -22,10 +22,49 @@ lon = "139.69167"
 
 
 
+
+@app.before_request
+def before_request():
+    if not request.is_secure and app.env != 'development':
+        url = request.url.replace('http://', 'https://', 1)
+        code = 301
+        return redirect(url, code=code)
+
+
+@app.route('/.well-known/acme-challenge/<filename>')
+def well_known(filename):
+    return render_template('.well-known/acme-challenge/'+ filename)
+
+
 @app.route("/")
 def hell():
     return render_template("top.html")
 
+
+@app.route("/GfN/<string:st>")
+def GfN(st):
+    s = "web/" + st + ".html"
+    return render_template(s)
+
+@app.route("/download")
+def download():
+    filename = os.listdir(path=app.config['UPLOAD_FOLDER'])
+    filename.sort()
+    filekey = list(range(len(filename)))
+    return render_template("download.html", data=zip(filename, filekey))
+
+
+@app.route("/upload")
+def upload():
+    return render_template("upload.html")
+
+
+@app.route("/put", methods=["POST"])
+def put():
+    putFile = request.files["file"]
+    putName = secure_filename(putFile.filename)
+    putFile.save(os.path.join(app.config['UPLOAD_FOLDER'], putName))
+    return jsonify()
 
 
 
@@ -49,4 +88,7 @@ if __name__ == '__main__':
     
 
 
-    app.run(host="0.0.0.0",debug=True,threaded=True)
+    app.run(host="0.0.0.0",ssl_context=('/etc/letsencrypt/live/sssumaa.net/fullchain.pem', '/etc/letsencrypt/live/sssumaa.net/privkey.pem'),debug=True,threaded=True)
+
+
+# sumaa@raspberrypi:~/Desktop/api $ sudo certbot certonly --webroot -w /home/sumaa/Desktop/api/templates/ -d sssumaa.net
